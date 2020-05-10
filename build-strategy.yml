@@ -8,5 +8,9 @@ parameters:
     # BuildArgs: []
 steps:
 - script: |-
+    export BUILD_REPO_NAME=$(echo ${{ parameters.ImageName }} | tr '[:upper:]' '[:lower:]')
+    export IMAGE_TAG=$(echo ${{ parameters.ImageTag }} | tr / - | tr . - | tr _ - )-$(Build.BuildNumber)
+    export IMAGE_NAME=$BUILD_REPO_NAME:$IMAGE_TAG
     echo ${{ parameters.ImageName }}
     echo ${{ parameters.ImageTag }}
+    echo $IMAGE_NAME
