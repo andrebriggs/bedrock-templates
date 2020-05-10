@@ -10,4 +10,3 @@ steps:
 - script: |-
     echo ${{ parameters.ImageName }}
     echo ${{ parameters.ImageTag }}
-    echo ${{ parameters.BuildArgs }}
