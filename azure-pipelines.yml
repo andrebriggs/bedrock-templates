@@ -8,7 +8,7 @@ extends:
 #       yesNo: false # set to a non-boolean value to have the build fail
   template: build-strategy.yml
   parameters:
-    ImageName: "quick-start-app-dev" # set to a non-boolean value to have the build fail
+    ImageName: "quick-start-app-$(Build.SourceBranchName)" # set to a non-boolean value to have the build fail
     ImageTag: "v0.1" # set to a non-boolean value to have the build fail
     # BuildArgs:
     # - ARG1: 'foo'
