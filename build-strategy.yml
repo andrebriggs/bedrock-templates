@@ -7,7 +7,7 @@ parameters:
   type: object
   default: {}
 steps:
-- ${{ each project in parameters.projects }}:
+# - ${{ each project in parameters.projects }}:
 - script: |-
     echo ${{ parameters.ImageName }}
     echo ${{ parameters.ImageTag }}
