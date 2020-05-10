@@ -1,13 +1,11 @@
 parameters:
-- name: ImageName # name of the parameter; required
-  type: string # data type of the parameter; required
-- name: ImageTag
-  type: string
-- name: BuildArgs
-  type: object
-  default:
-    ARG1: FOO
-    ARG2: BAR
+# - name: ImageName # name of the parameter; required
+#   type: string # data type of the parameter; required
+# - name: ImageTag
+#   type: string
+    ImageName: ''
+    ImageTag: ''
+    BuildArgs: []
 steps:
 - script: |-
     echo ${{ parameters.ImageName }}
