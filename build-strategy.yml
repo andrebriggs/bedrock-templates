@@ -9,10 +9,10 @@ steps:
 # - ${{ each item in parameters.BuildArgs }}:
 #     - script: |-
 #         echo $pair
-  - ${{ each item in parameters.BuildArgs }}:
-    - script: |-
-      echo ${{ $item.ArgName }}
-      echo ${{ $item.ArgValue }}
+- ${{ each item in parameters.BuildArgs }}:
+  - script: |-
+    echo ${{ $item.ArgName }}
+    echo ${{ $item.ArgValue }}
 - script: |-
     echo ${{ parameters.ImageName }}
     echo ${{ parameters.ImageTag }}
