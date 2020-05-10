@@ -10,6 +10,4 @@ else
 fi
 export BUILD_REPO_NAME=$(echo $BUILD_REPO_NAME | tr '[:upper:]' '[:lower:]')
 export IMAGE_NAME=$BUILD_REPO_NAME:$IMAGE_TAG
-# echo ${{ parameters.ImageName }}
-# echo ${{ parameters.ImageTag }}
 echo $IMAGE_NAME

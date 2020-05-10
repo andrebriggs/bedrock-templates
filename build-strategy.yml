@@ -3,13 +3,15 @@ parameters:
   type: string # data type of the parameter; required
 - name: ImageTag
   type: string
-    # ImageName: ''
-    # ImageTag: ''
-    # BuildArgs: []
+- name: BuildArgs
+  type: object
+  default: {}
 steps:
+- ${{ each project in parameters.projects }}:
 - script: |-
     echo ${{ parameters.ImageName }}
     echo ${{ parameters.ImageTag }}
+    echo ${{ parameters.BuildArgs }}
     echo $(System.DefaultWorkingDirectory)
     cd $(System.DefaultWorkingDirectory)
     ls -la
@@ -21,17 +23,3 @@ steps:
   env:
     IMAGE_TAG: ${{ parameters.ImageTag }}
     BUILD_REPO_NAME: ${{ parameters.ImageName }}
-
-#     if [ -z "${{ parameters.ImageTag }}" ]
-#     then
-#         echo "No ImageTag provided"
-#         export IMAGE_TAG=$(echo $(Build.BuildNumber) | tr / - | tr . - | tr _ - )
-#     else
-#         echo "ImageTag is NOT empty"
-#         export IMAGE_TAG=$(echo ${{ parameters.ImageTag }} | tr / - | tr . - | tr _ - )
-#     fi
-#     export BUILD_REPO_NAME=$(echo ${{ parameters.ImageName }} | tr '[:upper:]' '[:lower:]')
-#     export IMAGE_NAME=$BUILD_REPO_NAME:$IMAGE_TAG
-#     echo ${{ parameters.ImageName }}
-#     echo ${{ parameters.ImageTag }}
-#     echo $IMAGE_NAME
