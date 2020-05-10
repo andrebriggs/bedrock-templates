@@ -1,11 +1,11 @@
 parameters:
-# - name: ImageName # name of the parameter; required
-#   type: string # data type of the parameter; required
-# - name: ImageTag
-#   type: string
-    ImageName: ''
-    ImageTag: ''
-    BuildArgs: []
+- name: ImageName # name of the parameter; required
+  type: string # data type of the parameter; required
+- name: ImageTag
+  type: string
+    # ImageName: ''
+    # ImageTag: ''
+    # BuildArgs: []
 steps:
 - script: |-
     echo ${{ parameters.ImageName }}
