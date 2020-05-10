@@ -13,10 +13,11 @@ steps:
     echo $(System.DefaultWorkingDirectory)
     cd $(System.DefaultWorkingDirectory)
     ls -la
+    sudo chmod +x build-strategy.sh
 - task: Bash@3
   inputs:
     # targetType: 'filePath'
-    script: "build-strategy.sh"
+    script: build-strategy.sh
   env:
     IMAGE_TAG: ${{ parameters.ImageTag }}
     BUILD_REPO_NAME: ${{ parameters.ImageName }}
