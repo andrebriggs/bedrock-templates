@@ -1,11 +1,11 @@
 parameters:
-  BuildArgs: []
 - name: ImageName # name of the parameter; required
   type: string # data type of the parameter; required
 - name: ImageTag
   type: string
-# - name: BuildArgs
-#   type: object
+- name: BuildArgs
+  type: object
+  default: []
 steps:
 # - ${{ each item in parameters.BuildArgs }}:
 #     - script: |-
