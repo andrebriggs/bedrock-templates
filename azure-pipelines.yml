@@ -1,0 +1,12 @@
+# File: azure-pipelines.yml
+trigger:
+- master
+
+extends:
+  template: simple-param.yml
+  parameters:
+      yesNo: false # set to a non-boolean value to have the build fail
+  template: build-strategy.yml
+  parameters:
+      ImageName: "quick-start-app-dev" # set to a non-boolean value to have the build fail
+      ImageTag: "v0.1" # set to a non-boolean value to have the build fail
