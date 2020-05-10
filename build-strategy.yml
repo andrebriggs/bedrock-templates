@@ -7,11 +7,13 @@ parameters:
   type: object
   default: {}
 steps:
-# - ${{ each project in parameters.projects }}:
+# - ${{ each pair in parameters.BuildArgs }}:
+#     - script: |-
+#         echo $pair
 - script: |-
     echo ${{ parameters.ImageName }}
     echo ${{ parameters.ImageTag }}
-    echo ${{ parameters.BuildArgs }}
+    echo BuildArgs: ${{join(' ',parameters.BuildArgs)}}
     echo $(System.DefaultWorkingDirectory)
     cd $(System.DefaultWorkingDirectory)
     ls -la
