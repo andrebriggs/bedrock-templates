@@ -5,11 +5,14 @@ parameters:
   type: string
 - name: BuildArgs
   type: object
-  default: {}
 steps:
-# - ${{ each pair in parameters.BuildArgs }}:
+# - ${{ each item in parameters.BuildArgs }}:
 #     - script: |-
 #         echo $pair
+  - ${{ each item in parameters.BuildArgs }}:
+    - script: |-
+      echo $item.ArgName
+      echo $item.ArgValue
 - script: |-
     echo ${{ parameters.ImageName }}
     echo ${{ parameters.ImageTag }}
