@@ -10,6 +10,6 @@ extends:
   parameters:
     ImageName: "quick-start-app-dev" # set to a non-boolean value to have the build fail
     ImageTag: "v0.1" # set to a non-boolean value to have the build fail
-    BuildArgs:
-    - ARG1: 'foo'
-    - ARG2: 'bar'
+    # BuildArgs:
+    # - ARG1: 'foo'
+    # - ARG2: 'bar'
