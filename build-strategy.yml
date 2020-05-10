@@ -14,7 +14,7 @@ steps:
         export IMAGE_TAG=$(echo $(Build.BuildNumber) | tr / - | tr . - | tr _ - )
     else
         echo "ImageTag is NOT empty"
-        export IMAGE_TAG=$(echo ${{ parameters.ImageTag }} | tr / - | tr . - | tr _ - ))
+        export IMAGE_TAG=$(echo "${{ parameters.ImageTag }}" | tr / - | tr . - | tr _ - ))
     fi
     export BUILD_REPO_NAME=$(echo ${{ parameters.ImageName }} | tr '[:upper:]' '[:lower:]')
     export IMAGE_NAME=$BUILD_REPO_NAME:$IMAGE_TAG
