@@ -33,9 +33,9 @@ steps:
     BUILD_ARG_VG: ${{ parameters.BuildArgVariableGroup }}
     BUILD_ARG_YAML: ${{join(';',parameters.BuildArgs.*)}}
     ${{ each item in parameters.BuildArgs.* }}:
-      ${{ item }}: $(${{ item }})
+      ${{ item }}: "$(${{ item }})"
 - ${{ if ne(parameters.BuildArgVariableGroup, '') }}:
   - script: |-
       echo BuildArgVariableGroup: ${{ parameters.BuildArgVariableGroup }}
 - ${{ each item in parameters.BuildArgs.* }}:
-  - script: echo ${{ item }}"
+  - script: echo ${{ item }}
