@@ -3,6 +3,9 @@ parameters:
   type: string # data type of the parameter; required
 - name: ImageTag
   type: string
+- name: BuildArgVariableGroup
+  type: string
+  default: ''
 - name: BuildArgs
   type: object
   default: []
@@ -10,7 +13,7 @@ steps:
 - script: |-
     echo ${{ parameters.ImageName }}
     echo ${{ parameters.ImageTag }}
-    echo BuildArgs: ${{join(' ',parameters.BuildArgs.*.ArgName)}}
+    echo BuildArgs: ${{join(' ',parameters.BuildArgs.*)}}
     echo $(System.DefaultWorkingDirectory)
     cd $(System.DefaultWorkingDirectory)
     ls -la
@@ -22,6 +25,7 @@ steps:
   env:
     IMAGE_TAG: ${{ parameters.ImageTag }}
     BUILD_REPO_NAME: ${{ parameters.ImageName }}
-    BUILD_ARG_YAML: ${{join(' ',parameters.BuildArgs.*.ArgName)}}
+    BUILD_ARG_VG: ${{ parameters.BuildArgVariableGroup }}
+    BUILD_ARG_YAML: ${{join(' ',parameters.BuildArgs.*)}}
 - ${{ each item in parameters.BuildArgs }}:
   - script: echo ${{ item.ArgName }}
