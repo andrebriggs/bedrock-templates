@@ -7,9 +7,6 @@ parameters:
   type: object
   default: []
 steps:
-# - ${{ each item in parameters.BuildArgs }}:
-#     - script: |-
-#         echo $pair
 - script: |-
     echo ${{ parameters.ImageName }}
     echo ${{ parameters.ImageTag }}
@@ -18,9 +15,6 @@ steps:
     cd $(System.DefaultWorkingDirectory)
     ls -la
     sudo chmod +x build-strategy.sh
-- ${{ each item in parameters.BuildArgs }}:
-  - script: |-
-    echo ${{ item.ArgName }}
 - task: Bash@3
   inputs:
     # targetType: 'filePath'
@@ -28,3 +22,5 @@ steps:
   env:
     IMAGE_TAG: ${{ parameters.ImageTag }}
     BUILD_REPO_NAME: ${{ parameters.ImageName }}
+- ${{ each item in parameters.BuildArgs }}:
+  - script: echo ${{ item.ArgName }}
