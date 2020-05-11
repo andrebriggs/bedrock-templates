@@ -6,7 +6,7 @@ variables:
   - group: agent-build-vg
 
 extends:
-- template: Container-Build-Strategy.yml
+  template: Container-Build-Strategy.yml
   parameters:
     imageRepoType: ACR
     imageName: "quick-start-app-$(Build.SourceBranchName)"
