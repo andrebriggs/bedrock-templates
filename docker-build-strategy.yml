@@ -24,7 +24,7 @@ steps:
     echo $(System.DefaultWorkingDirectory)
     cd $(System.DefaultWorkingDirectory)
     ls -la
-    sudo chmod +x build-strategy.sh
+    sudo chmod +x ACR-build-strategy.sh
   displayName: Debugging messages
 - task: Bash@3
   inputs:
