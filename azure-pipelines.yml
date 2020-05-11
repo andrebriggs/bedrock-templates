@@ -12,16 +12,16 @@ stages:
         pool:
           vmImage: ubuntu-latest
         steps:
-        - script: |-
-            set -e
-            echo "az login --service-principal --username $(SP_APP_ID) --password $(SP_PASS) --tenant $(SP_TENANT)"
-            az login --service-principal --username "$(SP_APP_ID)" --password "$(SP_PASS)" --tenant "$(SP_TENANT)"
-          displayName: Azure Login 1st
+        # - script: |-
+        #     set -e
+        #     echo "az login --service-principal --username $(SP_CLIENT_ID) --password $(SP_CLIENT_PASS) --tenant $(TENANT_ID)"
+        #     az login --service-principal --username "$(SP_CLIENT_ID)" --password "$(SP_CLIENT_PASS)" --tenant "$(TENANT_ID)"
+        #   displayName: Azure Login 1st
         - template: azureLogin.yml  # Template reference
           parameters:
-            appId: $(SP_APP_ID)
-            password: $(SP_PASS)
-            tenantId: $(SP_TENANT)
+            appId: $(SP_CLIENT_ID)
+            password: $(SP_CLIENT_PASS)
+            tenantId: $(TENANT_ID)
         - template: Container-Build-Strategy.yml  # Template reference
           parameters:
             downloadTools: false
