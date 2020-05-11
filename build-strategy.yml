@@ -34,7 +34,7 @@ steps:
     # AZP_POOL: $(AZP_POOL)
     # ACR_NAME: $(ACR_NAME)
     ${{ each item in parameters.BuildArgs.* }}:
-      ${{ item }}: ${{ !item }}
+      ${{ item }}: ${{ format('${0}', item) }}
 - ${{ if ne(parameters.BuildArgVariableGroup, '') }}:
   - script: |-
       echo BuildArgVariableGroup: ${{ parameters.BuildArgVariableGroup }}
