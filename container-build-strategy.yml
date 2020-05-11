@@ -39,7 +39,7 @@ steps:
       filePath: AzureContainerRegistryBuild.sh
     ${{ if eq(parameters.imageRepoType, 'DockerHub') }}:
       filePath: DockerHubRegistryBuild.sh
-  failOnStderr: true
+    failOnStderr: true
   env:
     IMAGE_TAG: ${{ parameters.imageTag }}
     BUILD_REPO_NAME: ${{ parameters.imageName }}
