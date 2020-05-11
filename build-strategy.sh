@@ -12,11 +12,11 @@ export BUILD_REPO_NAME=$(echo $BUILD_REPO_NAME | tr '[:upper:]' '[:lower:]')
 export IMAGE_NAME=$BUILD_REPO_NAME:$IMAGE_TAG
 echo $IMAGE_NAME
 
-ACR_BUILD_COMMAND="az acr build -r $ACR_NAME --image $IMAGE_NAME ."
+ACR_BUILD_COMMAND="az acr build -r $(ACR_NAME) --image $IMAGE_NAME ."
 IFS=';' read -ra ADDR <<< "$BUILD_ARG_YAML"
 for i in "${ADDR[@]}"; do
     # process "$i"
-    ACR_BUILD_COMMAND="$ACR_BUILD_COMMAND --build-arg ${i}=$${i}"
+    ACR_BUILD_COMMAND="$ACR_BUILD_COMMAND --build-arg ${i}=$(${i})"
 done
 echo $ACR_BUILD_COMMAND
 echo $BUILD_ARG_YAML
