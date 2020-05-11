@@ -16,8 +16,8 @@ parameters:
 steps:
 - ${{ if eq(parameters.downloadTools, true) }}:
   - task: HelmInstaller@1
-      inputs:
-        helmVersionToInstall: 2.16.3
+    inputs:
+      helmVersionToInstall: 2.16.3
 - script: |-
     echo ${{ parameters.imageName }}
     echo ${{ parameters.imageTag }}
