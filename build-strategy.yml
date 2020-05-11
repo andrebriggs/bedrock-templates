@@ -12,7 +12,7 @@ parameters:
 
 variables:
 ${{ if ne(parameters.BuildArgVariableGroup, '') }}:
-  group: ${{ parameters.BuildArgVariableGroup }}
+- group: ${{ parameters.BuildArgVariableGroup }}
 
 steps:
 - script: |-
