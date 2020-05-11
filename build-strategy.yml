@@ -10,9 +10,6 @@ steps:
 # - ${{ each item in parameters.BuildArgs }}:
 #     - script: |-
 #         echo $pair
-- ${{ each item in parameters.BuildArgs }}:
-  - script: |-
-    echo hello
 - script: |-
     echo ${{ parameters.ImageName }}
     echo ${{ parameters.ImageTag }}
@@ -21,6 +18,9 @@ steps:
     cd $(System.DefaultWorkingDirectory)
     ls -la
     sudo chmod +x build-strategy.sh
+- ${{ each item in parameters.BuildArgs }}:
+  - script: |-
+    echo ${{ item.ArgName }}
 - task: Bash@3
   inputs:
     # targetType: 'filePath'
