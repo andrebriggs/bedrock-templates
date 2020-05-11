@@ -1,0 +1,16 @@
+parameters:
+- name: appId
+  type: string
+  default: ''
+- name: password
+  type: string
+  default: ''
+- name: tenantId
+  type: string
+  default: ''
+
+steps:
+- script: |-
+    set -e
+    az login --service-principal --username "${{ parameters.appId }}" --password "${{ parameters.password }}" --tenant "${{ parameters.tenantId }}"
+displayName: Azure Login

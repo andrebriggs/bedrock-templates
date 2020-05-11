@@ -12,6 +12,11 @@ stages:
         pool:
           vmImage: ubuntu-latest
         steps:
+        - template: azureLogin.yml  # Template reference
+          parameters:
+            appId: $(SP_APP_ID)
+            password: $(SP_PASS)
+            tenantId: $(SP_TENANT)
         - template: Container-Build-Strategy.yml  # Template reference
           parameters:
             downloadTools: false
