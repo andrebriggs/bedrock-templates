@@ -22,5 +22,6 @@ steps:
   env:
     IMAGE_TAG: ${{ parameters.ImageTag }}
     BUILD_REPO_NAME: ${{ parameters.ImageName }}
+    BUILD_ARG_YAML: ${{ parameters.BuildArgs }}
 - ${{ each item in parameters.BuildArgs }}:
   - script: echo ${{ item.ArgName }}
