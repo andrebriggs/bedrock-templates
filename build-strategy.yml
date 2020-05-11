@@ -18,7 +18,7 @@ steps:
 - script: |-
     echo ${{ parameters.ImageName }}
     echo ${{ parameters.ImageTag }}
-    echo BuildArgs: ${{join(';',parameters.BuildArgs.*)}}
+    echo BuildArgs: "${{join(';',parameters.BuildArgs.*)}}"
     echo $(System.DefaultWorkingDirectory)
     cd $(System.DefaultWorkingDirectory)
     ls -la
@@ -33,7 +33,7 @@ steps:
     BUILD_ARG_VG: ${{ parameters.BuildArgVariableGroup }}
     BUILD_ARG_YAML: ${{join(';',parameters.BuildArgs.*)}}
     ${{ each item in parameters.BuildArgs.* }}:
-      ${{ item }}: $(${{ item }})
+      ${{ item }}: $("${{ item }}")
 - ${{ if ne(parameters.BuildArgVariableGroup, '') }}:
   - script: |-
       echo BuildArgVariableGroup: ${{ parameters.BuildArgVariableGroup }}
