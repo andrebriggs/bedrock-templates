@@ -5,8 +5,8 @@ trigger:
 variables:
   - group: agent-build-vg
 
-extends:
-  template: Container-Build-Strategy.yml
+stages:
+- template: Container-Build-Strategy.yml  # Template reference
   parameters:
     imageRepoType: ACR
     imageName: "quick-start-app-$(Build.SourceBranchName)"
@@ -14,3 +14,13 @@ extends:
     buildArgs:
     - AZP_POOL
     - ACR_NAME
+
+# extends:
+#   template: Container-Build-Strategy.yml
+#   parameters:
+#     imageRepoType: ACR
+#     imageName: "quick-start-app-$(Build.SourceBranchName)"
+#     imageTag: "v0.1"
+#     buildArgs:
+#     - AZP_POOL
+#     - ACR_NAME
