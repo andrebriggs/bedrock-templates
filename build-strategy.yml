@@ -10,7 +10,7 @@ steps:
 - script: |-
     echo ${{ parameters.ImageName }}
     echo ${{ parameters.ImageTag }}
-    echo BuildArgs: ${{join(' ',parameters.BuildArgs)}}
+    echo BuildArgs: ${{join(' ',parameters.BuildArgs.*.ArgName)}}
     echo $(System.DefaultWorkingDirectory)
     cd $(System.DefaultWorkingDirectory)
     ls -la
@@ -22,6 +22,6 @@ steps:
   env:
     IMAGE_TAG: ${{ parameters.ImageTag }}
     BUILD_REPO_NAME: ${{ parameters.ImageName }}
-    BUILD_ARG_YAML: ${{ parameters.BuildArgs }}
+    # BUILD_ARG_YAML: ${{ parameters.BuildArgs }}
 - ${{ each item in parameters.BuildArgs }}:
   - script: echo ${{ item.ArgName }}

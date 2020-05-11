@@ -11,4 +11,4 @@ fi
 export BUILD_REPO_NAME=$(echo $BUILD_REPO_NAME | tr '[:upper:]' '[:lower:]')
 export IMAGE_NAME=$BUILD_REPO_NAME:$IMAGE_TAG
 echo $IMAGE_NAME
-echo $BUILD_ARG_YAML
+# echo $BUILD_ARG_YAML
