@@ -11,8 +11,8 @@ parameters:
   default: []
 
 variables:
-  ${{ if ne(parameters.BuildArgVariableGroup, '') }}:
-    group: '${{ parameters.BuildArgVariableGroup }}'
+  # ${{ if ne(parameters.BuildArgVariableGroup, '') }}:
+  group: ${{ parameters.BuildArgVariableGroup }}
 
 steps:
 - script: |-
