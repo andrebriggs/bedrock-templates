@@ -3,7 +3,8 @@ trigger:
 - master
 
 variables:
-  - group: agent-build-vg
+  # - group: agent-build-vg
+  - template: app-variables.yml  # Template reference
 
 stages:
   - stage: build
