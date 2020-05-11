@@ -9,11 +9,16 @@ parameters:
 - name: BuildArgs
   type: object
   default: []
+
+${{ if ne(parameters.BuildArgVariableGroup, '') }}:
+  variables:
+    group: ${{ parameters.BuildArgVariableGroup }}
+    
 steps:
 - script: |-
     echo ${{ parameters.ImageName }}
     echo ${{ parameters.ImageTag }}
-    echo BuildArgs: ${{join(' ',parameters.BuildArgs.*)}}
+    echo BuildArgs: ${{join(';',parameters.BuildArgs.*)}}
     echo $(System.DefaultWorkingDirectory)
     cd $(System.DefaultWorkingDirectory)
     ls -la
@@ -26,6 +31,6 @@ steps:
     IMAGE_TAG: ${{ parameters.ImageTag }}
     BUILD_REPO_NAME: ${{ parameters.ImageName }}
     BUILD_ARG_VG: ${{ parameters.BuildArgVariableGroup }}
-    BUILD_ARG_YAML: ${{join(' ',parameters.BuildArgs.*)}}
+    BUILD_ARG_YAML: ${{join(';',parameters.BuildArgs.*)}}
 - ${{ each item in parameters.BuildArgs }}:
   - script: echo ${{ item.ArgName }}

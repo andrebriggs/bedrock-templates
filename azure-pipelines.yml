@@ -10,7 +10,7 @@ extends:
   parameters:
     ImageName: "quick-start-app-$(Build.SourceBranchName)" # set to a non-boolean value to have the build fail
     ImageTag: "v0.1" # set to a non-boolean value to have the build fail
-    BuildArgVariableGroup: 'blah-vg'
+    BuildArgVariableGroup: 'agent-build-vg'
     BuildArgs:
-    - fooVar
-    - barVar
+    - AZP_POOL
+    - ACR_NAME
