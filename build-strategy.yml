@@ -36,3 +36,6 @@ steps:
       ${{ item }}: $(${{ item }})
 - ${{ each item in parameters.BuildArgs }}:
   - script: echo ${{ item.ArgName }}
+- ${{ if ne(parameters.BuildArgVariableGroup, '') }}:
+  - script: |-
+      echo BuildArgVariableGroup: ${{ item.BuildArgVariableGroup }}"
