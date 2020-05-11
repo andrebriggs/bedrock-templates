@@ -1,0 +1,5 @@
+# Use this instead of a variable group
+variables:
+  ACR_NAME: mynewacr
+  AZP_POOL: mysuperpool
+  AZDO_PAT: $(MY_SECRET_VAR_SET_BY_AGENT) # Expect that this is set in the environment via the custom build agent
