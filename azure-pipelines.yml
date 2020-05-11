@@ -2,6 +2,9 @@
 trigger:
 - master
 
+variables:
+  group: 'agent-build-vg'
+
 extends:
 #   template: simple-param.yml
 #   parameters:
