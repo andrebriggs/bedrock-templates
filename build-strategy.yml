@@ -32,8 +32,8 @@ steps:
     BUILD_REPO_NAME: ${{ parameters.ImageName }}
     BUILD_ARG_VG: ${{ parameters.BuildArgVariableGroup }}
     BUILD_ARG_YAML: ${{join(';',parameters.BuildArgs.*)}}
-    ${{ each item in parameters.BuildArgs.* }}:
-      ${{ item }}: "$(${{ item }})"
+  ${{ each item in parameters.BuildArgs.* }}:
+    ${{ item }}: $(${{ item }})
 - ${{ if ne(parameters.BuildArgVariableGroup, '') }}:
   - script: |-
       echo BuildArgVariableGroup: ${{ parameters.BuildArgVariableGroup }}
