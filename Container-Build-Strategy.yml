@@ -1,4 +1,7 @@
 parameters:
+- name: buildArgs
+  type: object
+  default: []
 - name: downloadTools
   type: boolean
   default: true
@@ -6,12 +9,12 @@ parameters:
   type: string # data type of the parameter; required
 - name: imageTag
   type: string
-- name: buildArgs
-  type: object
-  default: []
 - name: imageRepoType
   type: string
   default: ACR
+- name: enableIntrospetion
+  type: boole
+  default: true
 
 steps:
 - ${{ if eq(parameters.downloadTools, true) }}:
