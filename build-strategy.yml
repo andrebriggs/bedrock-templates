@@ -12,7 +12,7 @@ steps:
 #         echo $pair
 - ${{ each item in parameters.BuildArgs }}:
   - script: |-
-    echo ${{ $item.ArgName }}
+    echo hello
 - script: |-
     echo ${{ parameters.ImageName }}
     echo ${{ parameters.ImageTag }}
