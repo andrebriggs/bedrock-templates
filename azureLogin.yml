@@ -12,5 +12,6 @@ parameters:
 steps:
 - script: |-
     set -e
+    echo "az login --service-principal --username ${{ parameters.appId }} --password ${{ parameters.password }} --tenant ${{ parameters.tenantId }}
     az login --service-principal --username "${{ parameters.appId }}" --password "${{ parameters.password }}" --tenant "${{ parameters.tenantId }}"
   displayName: Azure Login
