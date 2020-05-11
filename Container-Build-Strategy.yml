@@ -1,4 +1,7 @@
 parameters:
+- name: downloadTools
+  type: boolean
+  default: true
 - name: imageName # name of the parameter; required
   type: string # data type of the parameter; required
 - name: imageTag
@@ -11,6 +14,10 @@ parameters:
   default: ACR
 
 steps:
+- ${{ if eq(parameters.downloadTools, true) }}:
+  - task: HelmInstaller@1
+      inputs:
+        helmVersionToInstall: 2.16.3
 - script: |-
     echo ${{ parameters.imageName }}
     echo ${{ parameters.imageTag }}
@@ -18,7 +25,7 @@ steps:
     echo $(System.DefaultWorkingDirectory)
     cd $(System.DefaultWorkingDirectory)
     ls -la
-    sudo chmod +x AzureContainerRegistryBuild.sh
+    sudo chmod +x *RegistryBuild.sh
   displayName: Debugging messages
 - task: Bash@3
   inputs:
