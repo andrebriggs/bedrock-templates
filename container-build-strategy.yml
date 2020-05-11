@@ -39,10 +39,11 @@ steps:
       filePath: AzureContainerRegistryBuild.sh
     ${{ if eq(parameters.imageRepoType, 'DockerHub') }}:
       filePath: DockerHubRegistryBuild.sh
+  failOnStderr: true
   env:
     IMAGE_TAG: ${{ parameters.imageTag }}
     BUILD_REPO_NAME: ${{ parameters.imageName }}
-    BUILD_ARG_YAML: $buildargsdelimited
+    BUILD_ARG_YAML: $(buildargsdelimited)
     # BUILD_ARG_YAML: ${{join(';',parameters.buildArgs.*)}}
     ${{ each item in parameters.buildArgs.* }}: # We want the bash script to have access to the var values
       ${{ item }}: ${{ format('${0}', item) }}

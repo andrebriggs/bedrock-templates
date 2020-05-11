@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 if [ -z "$IMAGE_TAG" ]
 then
     echo "No ImageTag provided"
