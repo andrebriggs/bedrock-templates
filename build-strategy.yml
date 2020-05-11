@@ -10,10 +10,10 @@ parameters:
   type: object
   default: []
 
+variables:
 ${{ if ne(parameters.BuildArgVariableGroup, '') }}:
-  variables:
-    group: ${{ parameters.BuildArgVariableGroup }}
-    
+  group: ${{ parameters.BuildArgVariableGroup }}
+
 steps:
 - script: |-
     echo ${{ parameters.ImageName }}
