@@ -31,10 +31,10 @@ steps:
     IMAGE_TAG: ${{ parameters.ImageTag }}
     BUILD_REPO_NAME: ${{ parameters.ImageName }}
     BUILD_ARG_YAML: ${{join(';',parameters.BuildArgs.*)}}
-    AZP_POOL: $(AZP_POOL)
-    ACR_NAME: $(ACR_NAME)
-    # ${{ each item in parameters.BuildArgs.* }}:
-    #   ${{ item }}: $("${{ item }}")
+    # AZP_POOL: $(AZP_POOL)
+    # ACR_NAME: $(ACR_NAME)
+    ${{ each item in parameters.BuildArgs.* }}:
+      ${{ item }}: ${{ !item }}
 - ${{ if ne(parameters.BuildArgVariableGroup, '') }}:
   - script: |-
       echo BuildArgVariableGroup: ${{ parameters.BuildArgVariableGroup }}
