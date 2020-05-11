@@ -14,9 +14,8 @@ export ACR_NAME=$ACR_NAME
 echo "BUILD_ARG_YAML: $BUILD_ARG_YAML"
 
 ACR_BUILD_COMMAND="az acr build -r $ACR_NAME --image $IMAGE_NAME ."
-IFS=';' read -ra ADDR <<< "$BUILD_ARG_YAML"
-for i in "${ADDR[@]}"; do
-    # process "$i"
+IFS=';' read -ra ARGS <<< "$BUILD_ARG_YAML"
+for i in "${ARGS[@]}"; do
     ACR_BUILD_COMMAND="$ACR_BUILD_COMMAND --build-arg ${i}=${!i}"
 done
 
