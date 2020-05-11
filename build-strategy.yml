@@ -30,7 +30,6 @@ steps:
   env:
     IMAGE_TAG: ${{ parameters.ImageTag }}
     BUILD_REPO_NAME: ${{ parameters.ImageName }}
-    BUILD_ARG_VG: ${{ parameters.BuildArgVariableGroup }}
     BUILD_ARG_YAML: ${{join(';',parameters.BuildArgs.*)}}
     AZP_POOL: $(AZP_POOL)
     ACR_NAME: $(ACR_NAME)
