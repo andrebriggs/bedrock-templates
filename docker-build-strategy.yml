@@ -9,7 +9,9 @@ parameters:
 - name: BuildArgs
   type: object
   default: []
-
+- name: imageRepoType
+  type: string
+  default: ACR
 # variables:
 #   # ${{ if ne(parameters.BuildArgVariableGroup, '') }}:
 #   group: ${{ parameters.BuildArgVariableGroup }}
@@ -23,20 +25,23 @@ steps:
     cd $(System.DefaultWorkingDirectory)
     ls -la
     sudo chmod +x build-strategy.sh
+  displayName: Debugging messages
 - task: Bash@3
   inputs:
     # targetType: 'filePath'
-    filePath: build-strategy.sh
+    ${{ if eq(parameters.imageRepoType, 'ACR') }}:
+      filePath: ACR-build-strategy.sh
+    ${{ if eq(parameters.imageRepoType, 'DockerHub') }}:
+      filePath: DockerHub-build-strategy.sh
   env:
     IMAGE_TAG: ${{ parameters.ImageTag }}
     BUILD_REPO_NAME: ${{ parameters.ImageName }}
     BUILD_ARG_YAML: ${{join(';',parameters.BuildArgs.*)}}
-    # AZP_POOL: $(AZP_POOL)
-    # ACR_NAME: $(ACR_NAME)
-    ${{ each item in parameters.BuildArgs.* }}:
+    ${{ each item in parameters.BuildArgs.* }}: # We want the bash script to have access to the var values
       ${{ item }}: ${{ format('${0}', item) }}
-- ${{ if ne(parameters.BuildArgVariableGroup, '') }}:
-  - script: |-
-      echo BuildArgVariableGroup: ${{ parameters.BuildArgVariableGroup }}
-- ${{ each item in parameters.BuildArgs.* }}:
-  - script: echo ${{ item }}
+  displayName: Execute Docker Image Build
+# - ${{ if ne(parameters.BuildArgVariableGroup, '') }}:
+#   - script: |-
+#       echo BuildArgVariableGroup: ${{ parameters.BuildArgVariableGroup }}
+# - ${{ each item in parameters.BuildArgs.* }}:
+#   - script: echo ${{ item }}

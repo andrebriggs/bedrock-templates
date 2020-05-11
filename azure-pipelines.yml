@@ -6,11 +6,9 @@ variables:
   - group: agent-build-vg
 
 extends:
-#   template: simple-param.yml
-#   parameters:
-#       yesNo: false # set to a non-boolean value to have the build fail
-  template: build-strategy.yml
+  template: docker-build-strategy.yml
   parameters:
+    imageRepoType: acr
     ImageName: "quick-start-app-$(Build.SourceBranchName)" # set to a non-boolean value to have the build fail
     ImageTag: "v0.1" # set to a non-boolean value to have the build fail
     BuildArgVariableGroup: 'agent-build-vg'
