@@ -26,7 +26,7 @@ steps:
     inputs:
       helmVersionToInstall: 2.16.3
 - bash: |-
-    echo "##vso[task.setvariable variable=buildargsdelimited]{{ join(';',parameters.buildArgs.*) }}"
+    echo "##vso[task.setvariable variable=buildargsdelimited]${{ join(';',parameters.buildArgs.*) }}"
     echo buildargsdelimited: $buildargsdelimited
   failOnStderr: true
   displayName: Set Variables
@@ -51,7 +51,7 @@ steps:
   env:
     IMAGE_TAG: ${{ parameters.imageTag }}
     BUILD_REPO_NAME: ${{ parameters.imageName }}
-    BUILD_ARG_DELIMITED: $delimited_build_args
+    BUILD_ARG_DELIMITED: $(delimited_build_args)
     # BUILD_ARG_DELIMITED: "${{join(';',parameters.buildArgs.*)}}" 
     ${{ each item in parameters.buildArgs.* }}: # We want the bash script to have access to the var values
       ${{ item }}: ${{ format('${0}', item) }}
