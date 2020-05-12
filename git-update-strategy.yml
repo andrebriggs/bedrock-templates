@@ -1,0 +1,59 @@
+parameters:
+- name: azureContainerRegistry
+  type: string
+  default: ''
+- name: downloadTools
+  type: boolean
+  default: true
+- name: downloadFab
+  type: boolean
+  default: true
+- name: gitUpdateType
+  type: string
+  default: HLD
+  values:
+  - HLD
+  - Helm
+- name: gitRepoURL
+  type: string
+  default: ''
+- name: gitAccessToken
+  type: string
+  default: ''
+- name: imageName
+  type: string
+  default: ''
+- name: imageTag
+  type: string
+  default: ''
+
+steps:
+- ${{ if eq(parameters.downloadTools, true) }}:
+  - task: HelmInstaller@1
+    inputs:
+      helmVersionToInstall: 2.16.3
+- ${{ if eq(parameters.downloadFab, true) }}:
+  - task: Bash@3
+    inputs:
+      filePath: download-fabrikate.sh
+      failOnStderr: true
+    displayName: Download Linux Fabrikate
+# - task: Bash@3
+#   inputs:
+#     filePath: download-fabrikate.sh
+#     failOnStderr: true
+#   displayName: Clone a private git repository
+#   env:
+#       ACCESS_TOKEN_SECRET: 'REPLACE-ME'
+# - ${{ if eq(parameters.gitUpdateType, 'HLD') }}:
+#   - task: Bash@3
+#   inputs:
+#     filePath: fab-image-tag-update.sh
+#     failOnStderr: true
+#   displayName: ush Fabrikate Image Tag update to new Git branch and make PR
+#   env:
+#     ACR_NAME: ${{ parameters.azureContainerRegistry }}
+#     REPO_NAME: 'REPLACE-ME'
+#     BRANCH_NAME: 'REPLACE-ME'
+#     BUILD_VERSION: 'REPLACE-ME'
+

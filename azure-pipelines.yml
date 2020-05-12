@@ -36,16 +36,13 @@ stages:
         pool:
           vmImage: ubuntu-latest
         steps:
-        - script: |-
-            echo "I need TODO this"
-          displayName: Debugging messages
-
-# extends:
-#   template: Container-Build-Strategy.yml
-#   parameters:
-#     imageRepoType: ACR
-#     imageName: "quick-start-app-$(Build.SourceBranchName)"
-#     imageTag: "v0.1"
-#     buildArgs:
-#     - AZP_POOL
-#     - ACR_NAME
+        - template: git-update-strategy.yml  # Template reference
+          parameters:
+            downloadFab: true
+            downloadTools: true
+            azureContainerRegistry: $(ACR_NAME)
+            gitUpdateType: HLD
+            gitRepoURL: "https://dev.azure.com/abrig/spk/_git/quick-start-hld" # Should in VG
+            gitAccessToken: "SECRET" # Should in VG
+            imageName: "quick-start-app-$(Build.SourceBranchName)"
+            imageTag: "v0.1"
