@@ -27,7 +27,7 @@ steps:
       helmVersionToInstall: 2.16.3
 - bash: |-
     compacted_build_args=${{join(';',parameters.buildArgs.*)}}
-    echo compacted_build_args: $compacted_build_args
+    echo compacted_build_args: "$compacted_build_args"
     echo "##vso[task.setvariable variable=delimited_build_args]$compacted_build_args"
   failOnStderr: true
   displayName: Set Variables
