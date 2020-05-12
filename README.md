@@ -1,4 +1,5 @@
 # Templating the `bedrock-cli` 
+This repository contains a proposal around pipeline generation for the [bedrock-cli](https://github.com/microsoft/bedrock-cli). Inspired by my post [here](https://github.com/microsoft/bedrock/issues/1006#issuecomment-592771163).
 
 ## Problem
 Customers are on their own between AKS (infra creation) and Azure Devops (orchestration)
@@ -11,8 +12,6 @@ Customers dont' want to use Bedrock CLI because:
 * `bedrock` can not anticpate all needs in GitOps scenarios upfront
 
 ## Proposal 
-
-This repository contains a proposal around pipeline generation for the [bedrock-cli](https://github.com/microsoft/bedrock-cli).
 
 - Simplify what `bedrock` cli generates
   - Push logic into Azure DevOps Templates 
