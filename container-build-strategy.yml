@@ -16,6 +16,10 @@ parameters:
   type: boolean
   default: true
 
+# variables:
+#   - group: agent-build-vg
+  # - template: app-variables.yml  # Template reference
+  
 steps:
 - ${{ if eq(parameters.downloadTools, true) }}:
   - task: HelmInstaller@1
