@@ -3,9 +3,12 @@ trigger:
 - master
 
 variables:
-  - group: agent-build-vg
-  # - template: app-variables.yml  # Template reference
-  #  ^^ echo My favorite vegetable is ${{ variables.favoriteVeggie }}
+  - group: quick-start-vg
+  - name: APP_NAME
+    value: quick-start-app
+  - name: AZP_POOL
+    value: my-special-pool
+  # - template: templates/app-variables.yml  # Template reference
 
 stages:
   - stage: build
@@ -16,15 +19,15 @@ stages:
         steps:
         - template: templates/azure-login.yml  # Template reference
           parameters:
-            appId: $(SP_CLIENT_ID)
-            password: $(SP_CLIENT_PASS)
-            tenantId: $(TENANT_ID)
+            appId: $(SP_APP_ID)
+            password: $(SP_PASS)
+            tenantId: $(SP_TENANT)
         - template: templates/container-build-strategy.yml  # Template reference
           parameters:
             downloadTools: false
             imageRepoType: ACR
-            imageName: "quick-start-app-$(Build.SourceBranchName)"
-            imageTag: "v0.1"
+            imageName: "$(APP_NAME)-$(Build.SourceBranchName)"
+            imageTag: $(Build.BuildNumber)
             buildArgs:
             - AZP_POOL
             - ACR_NAME
@@ -40,9 +43,9 @@ stages:
           parameters:
             downloadFab: true
             downloadTools: true
-            azureContainerRegistry: $(ACR_NAME)
+            azureContainerRegistry: $(ACR_NAME) # Should in VG
             gitUpdateType: HLD
-            gitRepoURL: "https://dev.azure.com/abrig/spk/_git/quick-start-hld" # Should in VG
-            gitAccessToken: "SECRET" # Should in VG
-            imageName: "quick-start-app-$(Build.SourceBranchName)"
-            imageTag: "v0.1"
+            gitRepoURL: $(HLD_REPO) # Should in VG
+            gitAccessToken: $(PAT) # Should in VG
+            imageName: "$(APP_NAME)-$(Build.SourceBranchName)"
+            imageTag: $(Build.BuildNumber)
