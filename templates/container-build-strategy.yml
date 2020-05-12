@@ -37,16 +37,16 @@ steps:
     echo $(System.DefaultWorkingDirectory)
     cd $(System.DefaultWorkingDirectory)
     ls -la
-    sudo chmod +x *RegistryBuild.sh
+    sudo chmod +x ./scripts/*RegistryBuild.sh
   failOnStderr: true
   displayName: Debugging messages
 - task: Bash@3
   inputs:
     # targetType: 'filePath'
     ${{ if eq(parameters.imageRepoType, 'ACR') }}:
-      filePath: AzureContainerRegistryBuild.sh
+      filePath: scripts/AzureContainerRegistryBuild.sh
     ${{ if eq(parameters.imageRepoType, 'DockerHub') }}:
-      filePath: DockerHubRegistryBuild.sh
+      filePath: scripts/DockerHubRegistryBuild.sh
     failOnStderr: true
   env:
     IMAGE_TAG: ${{ parameters.imageTag }}

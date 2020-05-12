@@ -35,12 +35,12 @@ steps:
 - ${{ if eq(parameters.downloadFab, true) }}:
   - task: Bash@3
     inputs:
-      filePath: download-fabrikate.sh
+      filePath: scripts/download-fabrikate.sh
       failOnStderr: false
     displayName: Download Linux Fabrikate
 # - task: Bash@3
 #   inputs:
-#     filePath: download-fabrikate.sh
+#     filePath: scripts/download-fabrikate.sh
 #     failOnStderr: true
 #   displayName: Clone a private git repository
 #   env:
@@ -48,7 +48,7 @@ steps:
 # - ${{ if eq(parameters.gitUpdateType, 'HLD') }}:
 #   - task: Bash@3
 #   inputs:
-#     filePath: fab-image-tag-update.sh
+#     filePath: scripts/fab-image-tag-update.sh
 #     failOnStderr: true
 #   displayName: ush Fabrikate Image Tag update to new Git branch and make PR
 #   env:
