@@ -3,8 +3,9 @@ trigger:
 - master
 
 variables:
-  # - group: agent-build-vg
-  - template: app-variables.yml  # Template reference
+  - group: agent-build-vg
+  # - template: app-variables.yml  # Template reference
+  #  ^^ echo My favorite vegetable is ${{ variables.favoriteVeggie }}
 
 stages:
   - stage: build
