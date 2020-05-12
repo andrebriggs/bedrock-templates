@@ -26,12 +26,14 @@ steps:
     inputs:
       helmVersionToInstall: 2.16.3
 - bash: |-
-    echo "##vso[task.setvariable variable=delimited_build_args]${{join(';',parameters.buildArgs.*)}}"
+    compacted_build_args=${{join(';',parameters.buildArgs.*)}}
+    echo compacted_build_args: $compacted_build_args
+    echo "##vso[task.setvariable variable=delimited_build_args]$compacted_build_args"
   failOnStderr: true
   displayName: Set Variables
 - script: |-
-    echo ${{ parameters.imageName }}
-    echo ${{ parameters.imageTag }}
+    echo imageName: ${{ parameters.imageName }}
+    echo imageTag: ${{ parameters.imageTag }}
     echo delimited_build_args: $(delimited_build_args)
     echo BuildArgs: "${{join(';',parameters.buildArgs.*)}}"
     echo $(System.DefaultWorkingDirectory)
