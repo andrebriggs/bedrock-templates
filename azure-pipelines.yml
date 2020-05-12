@@ -43,9 +43,9 @@ stages:
           parameters:
             downloadFab: true
             downloadTools: true
-            azureContainerRegistry: $(ACR_NAME) # Should in VG
+            azureContainerRegistry: $(ACR_NAME) 
             gitUpdateType: HLD
-            gitRepoURL: $(HLD_REPO) # Should in VG
-            gitAccessToken: $(PAT) # Should in VG
+            gitRepoURL: $(HLD_REPO)
+            gitAccessToken: $(PAT) 
             imageName: "$(APP_NAME)-$(Build.SourceBranchName)"
             imageTag: $(Build.BuildNumber)

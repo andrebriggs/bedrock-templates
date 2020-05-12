@@ -15,16 +15,14 @@ parameters:
 - name: enableIntrospetion
   type: boolean
   default: true
-
-# variables:
-#   - group: agent-build-vg
-  # - template: app-variables.yml  # Template reference
   
 steps:
 - ${{ if eq(parameters.downloadTools, true) }}:
   - task: HelmInstaller@1
     inputs:
       helmVersionToInstall: 2.16.3
+#
+#
 # - bash: |-
 #     echo "##vso[task.setvariable variable=buildargsdelimited]"${{join(';',parameters.buildArgs.*)}}""
 #     echo buildargsdelimited: $buildargsdelimited
@@ -37,12 +35,11 @@ steps:
     echo $(System.DefaultWorkingDirectory)
     cd $(System.DefaultWorkingDirectory)
     ls -la
-    sudo chmod +x ./scripts/*RegistryBuild.sh
+    sudo chmod +x ./scripts/*.sh
   failOnStderr: true
   displayName: Debugging messages
 - task: Bash@3
   inputs:
-    # targetType: 'filePath'
     ${{ if eq(parameters.imageRepoType, 'ACR') }}:
       filePath: scripts/AzureContainerRegistryBuild.sh
     ${{ if eq(parameters.imageRepoType, 'DockerHub') }}:
@@ -56,8 +53,3 @@ steps:
     ${{ each item in parameters.buildArgs.* }}: # We want the bash script to have access to the var values
       ${{ item }}: ${{ format('${0}', item) }}
   displayName: Execute Docker Image Build
-# - ${{ if ne(parameters.BuildArgVariableGroup, '') }}:
-#   - script: |-
-#       echo BuildArgVariableGroup: ${{ parameters.BuildArgVariableGroup }}
-# - ${{ each item in parameters.buildArgs.* }}:
-#   - script: echo ${{ item }}
