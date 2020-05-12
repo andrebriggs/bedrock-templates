@@ -13,10 +13,10 @@ fi
 export BUILD_REPO_NAME=$(echo $BUILD_REPO_NAME | tr '[:upper:]' '[:lower:]')
 export IMAGE_NAME=$BUILD_REPO_NAME:$IMAGE_TAG
 export ACR_NAME=$ACR_NAME
-echo "BUILD_ARG_YAML: $BUILD_ARG_YAML"
+echo "BUILD_ARG_DELIMITED: $BUILD_ARG_DELIMITED"
 
 ACR_BUILD_COMMAND="az acr build -r $ACR_NAME --image $IMAGE_NAME ."
-IFS=';' read -ra ARGS <<< "$BUILD_ARG_YAML"
+IFS=';' read -ra ARGS <<< "$BUILD_ARG_DELIMITED"
 for i in "${ARGS[@]}"; do
     ACR_BUILD_COMMAND="$ACR_BUILD_COMMAND --build-arg ${i}=${!i}"
 done
