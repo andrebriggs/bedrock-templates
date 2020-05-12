@@ -1,4 +1,25 @@
 #!/bin/bash
+
+# Initialize Helm
+function helm_init() {
+    echo "RUN HELM INIT"
+    helm init --client-only
+}
+
+# Obtain version for Fabrikate
+# If the version number is not provided, then download the latest
+function get_fab_version() {
+    # shellcheck disable=SC2153
+    if [ -z "$VERSION" ]
+    then
+        # By default, the script will use the most recent non-prerelease, non-draft release Fabrikate
+        VERSION_TO_DOWNLOAD=$(curl -s "https://api.github.com/repos/microsoft/fabrikate/releases/latest" | grep "tag_name" | sed -E 's/.*"([^"]+)".*/\1/')
+    else
+        echo "Fabrikate Version: $VERSION"
+        VERSION_TO_DOWNLOAD=$VERSION
+    fi
+}
+
 # Obtain OS to download the appropriate version of Fabrikate
 function get_os() {
     if [[ "$OSTYPE" == "linux-gnu" ]]; then
@@ -30,4 +51,6 @@ function download_fab() {
     export PATH=$PATH:$HOME/fab
 }
 
+helm_init
+get_fab_version
 download_fab
