@@ -29,12 +29,13 @@ steps:
     echo ${{ parameters.imageName }}
     echo ${{ parameters.imageTag }}
     echo "##vso[task.setvariable variable=delimited_build_args]${{join(';',parameters.buildArgs.*)}}"
-    echo delimited_build_args: $(delimited_build_args)
+    echo delimited_build_args: $delimited_build_args
     echo BuildArgs: "${{join(';',parameters.buildArgs.*)}}"
     echo $(System.DefaultWorkingDirectory)
     cd $(System.DefaultWorkingDirectory)
     ls -la
     sudo chmod +x *RegistryBuild.sh
+  failOnStderr: true
   displayName: Debugging messages
 - task: Bash@3
   inputs:
