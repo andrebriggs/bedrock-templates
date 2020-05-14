@@ -16,7 +16,7 @@ Some customers don't want to use Bedrock CLI because:
 
 ## Proposal
 
-This repo contains a proof of concept of what `bedrock` coudl be doing instead. Simplify what `bedrock` cli generates. Push logic into Azure DevOps Templates to allow customization of business logic in templates and scripts
+This repo contains a proof of concept of what `bedrock` could be doing instead. Simplify what `bedrock` cli generates. Push logic into Azure DevOps Templates to allow customization of business logic in templates and scripts
 
 The reason for this is to make `bedrock` pipeline generation less rigid. Instead we can focus on composition and encapsulation. This unlocks several benefits:
 
@@ -25,7 +25,58 @@ The reason for this is to make `bedrock` pipeline generation less rigid. Instead
   * More logic reuse
   * Separation of concerns
 
-CHanges to testing.
+
+## How it could work
+
+The use of templates is applicable to any AzDO pipeline that `bedrock` generates. In this repository example we simulate calling `bedrock service create` which creates a `build-update-hld.yaml` file.
+
+Consider the `azure-pipelines.yml` files in thie repository has a new version of the `build-update-hld.yaml` file. The `azure-pipelines.yml` references templates yaml files that in turn reference bash scripts:
+
+`azure-pipelines.yml` --> `templates/*` --> `scripts/*`
+
+Simplest scenario:
+
+1. Call `bedrock service create` and `azure-pipelines.yml` is created locally.
+2. Git commit and push the yaml file 
+3. Call `bedrock service install-build-pipeline` to install the pipeline to AzDO
+4. You get the default multi-stage Docker image build and HLD image tag update
+
+1. Call `bedrock service create --template helm-gitops` and `azure-pipelines.yml` is created locally.
+2. Git commit and push the yaml file 
+3. Call `bedrock service install-build-pipeline` to install the pipeline to AzDO
+4. The running pip
+4. You get the default multi-stage Docker image build and HLD image tag update
+
+
+3. The *templates* and *scripts* directories are copied to the [project](https://microsoft.github.io/bedrock-cli/commands/#master@project_init) level of bedrock scaffolded service
+4. User manipulates templates and scripts
+
+Alternatively if the 
+
+The structure of this repo makes this more clear:
+
+<pre>
+.
+├── README.md
+├── azure-pipelines.yml
+├── <b>scripts</b>
+│   ├── AzureContainerRegistryBuild.sh
+│   ├── Test.AzureContainerRegistryBuild.sh
+│   ├── download-fabrikate.sh
+│   ├── fab-image-tag-update.sh
+│   ├── git-clone.sh
+│   └── git-pull-request-azdo.sh
+└── <b>templates</b>
+    ├── app-variables.yml
+    ├── azure-login.yml
+    ├── container-build-strategy.yml
+    └── git-update-strategy.yml
+</pre>
+
+the CLI will download templates and scripts from the maintained bedrock repository
+The CLI will generate your `azure-pipelines.yml` that references the templates and in turn the scripts.
+Users can customize or add to the templates/scripts
+
 
 
 ### Scenario: Bedrock in private networks
@@ -45,9 +96,7 @@ Such a solution would require confuguration that can be easily manipulated with 
 
 ## Some ideas
 
-* When calling `bedrock service create` the CLI will download templates and scripts from the maintained bedrock repository
-The CLI will generate your `azure-pipelines.yml` that references the templates and in turn the scripts.
-Users can customize or add to the templates/scripts
+*
 
 * In mono-repo situations each application will have it's own `azure-pipelines.yml` that will handle orchestration.
 
