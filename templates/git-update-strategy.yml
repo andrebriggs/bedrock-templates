@@ -34,15 +34,6 @@ parameters:
   default: ''
 
 steps:
-# - task: Bash@3
-#   inputs:
-#     filePath: scripts/azure-login.sh
-#     failOnStderr: false
-#   displayName: Az Login
-#   env:
-#     SP_APP_ID: $(SP_APP_ID)
-#     SP_PASS: $(SP_PASS)
-#     SP_TENANT: $(SP_TENANT)
 - ${{ if eq(parameters.downloadTools, true) }}:
   - task: HelmInstaller@1
     inputs:
@@ -65,7 +56,7 @@ steps:
   - task: Bash@3
     inputs:
       filePath: scripts/fab-image-tag-update.sh
-      failOnStderr: true
+      failOnStderr: false
     displayName: Push Fabrikate Image Tag update to new Git branch and make PR
     env:
       ACR_NAME: ${{ parameters.azureContainerRegistry }}

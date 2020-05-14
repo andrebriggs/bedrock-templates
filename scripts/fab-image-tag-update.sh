@@ -113,3 +113,5 @@ az extension add --name azure-devops
 echo 'az repos pr create --description "Updating $SERVICE_NAME_LOWER to $(echo $BRANCH_NAME | tr / - | tr . - | tr _ - )-$BUILD_VERSION." "PR created by: $(Build.DefinitionName) with buildId: $(Build.BuildId) and buildNumber: $(Build.BuildNumber)"'
 response=$(az repos pr create --description "Updating $SERVICE_NAME_LOWER to $(echo $BRANCH_NAME | tr / - | tr . - | tr _ - )-$BUILD_VERSION.") #"PR created by: $(Build.DefinitionName) with buildId: $(Build.BuildId) and buildNumber: $(Build.BuildNumber)")
 pr_id=$(echo $response | jq -r '.pullRequestId')
+
+echo "Created pr id: $pr_id" 
