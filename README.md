@@ -24,9 +24,18 @@ The reason for this is to make `bedrock` pipeline generation less rigid. Instead
   * More definition of what components need (via parameters)
   * More logic reuse
   * Separation of concerns
+  
+## Scenarios
 
+__GitOps pipeline using High Level Definition repo and Fabrikate__: The default scenario `bedrock` provides has the user calling `bedrock service create` and `bedrock service install-build-pipeline` to install the pipeline to AzDO and build a Docker image, push to ACR, and update a HLD repo using Fabrikate.
 
-## How it could work
+__GitOps pipeline with Fabrikate__:Consider a user who doesn't want to use Fabrikate for any variety of reasons. The user specifies a pre-canned template such as `helm-gitops`. This template generates a pipeline for Docker build/push but instead of having Fabrikate being called on a HLD repo it will modify a Helm chart then call `helm template` to generate yaml manifests. These yaml manifest can be saved in a "manifest" repository. A user has a GitOps pipeline using only Helm.
+
+__Not using ACR__: Another scenario builds on top of the previous two examples but instead of pushing to an Azure Container Registry we can push the built Docker image to DockerHub or any other Docker registry.
+
+__Bedrock in private networks__: Customers who don't want to download external packages outside of their private network but want to take advantage of Bedrock style deployment. We've thought about these story of scenarios from the [build agent](https://github.com/andrebriggs/bedrock-agents) side but a complete solution requires generated pipelines from `bedrock` to be aware. Such a solution would require confuguration that can be easily manipulated with minimal changes to the the Bedrock CLI. If we provide switches to turn on and off certain pieces of logic (i.e. don't download Fabrikate) we can make these sort of scenario easier to acheive to for customers. These switches are just conditionals in the in the templated AzDO yaml.
+
+## How it would work
 
 The use of templates is applicable to any AzDO pipeline that `bedrock` generates. In this repository example we simulate calling `bedrock service create` which creates a `build-update-hld.yaml` file.
 
@@ -34,27 +43,11 @@ Consider the `azure-pipelines.yml` files in thie repository has a new version of
 
 `azure-pipelines.yml` --> `templates/*` --> `scripts/*`
 
-Simplest scenario:
+The *templates* and *scripts* directories can be copied locally to the [project](https://microsoft.github.io/bedrock-cli/commands/#master@project_init) level of bedrock scaffolded service. Alternatively Azure DevOps Yaml templates __can be referenced from other repositories__. This is very powerful because it allows the Bedrock repo to store these default templates or users can choose to copy the templates to their own repository.
 
-1. Call `bedrock service create` and `azure-pipelines.yml` is created locally.
-2. Git commit and push the yaml file 
-3. Call `bedrock service install-build-pipeline` to install the pipeline to AzDO
-4. You get the default multi-stage Docker image build and HLD image tag update
+The vision here is that users can __extend__ the logic `bedrock` sets up for them. We are enabling a library of GitOps AZDO templates and scripts that the community can extend.
 
-1. Call `bedrock service create --template helm-gitops` and `azure-pipelines.yml` is created locally.
-2. Git commit and push the yaml file 
-3. Call `bedrock service install-build-pipeline` to install the pipeline to AzDO
-4. The running pip
-4. You get the default multi-stage Docker image build and HLD image tag update
-
-
-3. The *templates* and *scripts* directories are copied to the [project](https://microsoft.github.io/bedrock-cli/commands/#master@project_init) level of bedrock scaffolded service
-4. User manipulates templates and scripts
-
-Alternatively if the 
-
-The structure of this repo makes this more clear:
-
+<!--
 <pre>
 .
 ├── README.md
@@ -72,20 +65,12 @@ The structure of this repo makes this more clear:
     ├── container-build-strategy.yml
     └── git-update-strategy.yml
 </pre>
-
-the CLI will download templates and scripts from the maintained bedrock repository
-The CLI will generate your `azure-pipelines.yml` that references the templates and in turn the scripts.
-Users can customize or add to the templates/scripts
-
-
-
+-->
 ### Scenario: Bedrock in private networks
 
 A scenario that has come up a few times is around customers who don't want to download external packages outside of their private network but want to take advantage of Bedrock style deployment. We've thought about these story of scenarios from the [build agent](https://github.com/andrebriggs/bedrock-agents) side but a complete solution requires generated pipelines from `bedrock` to be aware.
 
 Such a solution would require confuguration that can be easily manipulated with minimal changes to the the Bedrock CLI. If we provide switches to turn on and off certain pieces of logic (i.e. don't download Fabrikate) we can make these sort of scenario easier to acheive to for customers.
-
-* We are enabling a library of GitOps AZDO templates and scripts that the community can extend
 
 * If you don't want to use a variable group you can set ENV VAR (even) secure ones) in your [custom Bedrock build agent](https://github.com/andrebriggs/bedrock-agents)
   * Power users (enterprise_) can bring all their tools in a custom Bedrock build agent.
@@ -94,30 +79,7 @@ Such a solution would require confuguration that can be easily manipulated with 
 * We will rely more on integration tests since the solution space has exploded compared to the hardcoded paths of the current CLI
 * The templatizing makes it easier for someone to take what we are doing and massage it to their needs. The current model doesn't invite people to change what has been scaffolding
 
-## Some ideas
-
-*
-
-* In mono-repo situations each application will have it's own `azure-pipelines.yml` that will handle orchestration.
-
-## Canned scenarios
-
-We will have some canned scenarios that the CLI will help you with out the box
-
-GitOps pipeline using High Level Definition repo and Fabrikate
-
-1. Create an App build
-2. Push to ACR or DockerHub
-3. Update a HLD using Fabrikate repo
-4. Create Pull request on AzDO
-
-GitOps pipeline using only Helm
-
-1. Create an App build
-2. Push to ACR or DockerHub
-3. Update a Helm chart repo, Run Helm template and copy to "Manifest repo"
-4. Create Pull request on AzDO
-
+## Appendix
 
 ### Current `bedrock service create` yaml
 
