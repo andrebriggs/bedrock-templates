@@ -46,7 +46,7 @@ stages:
             azureContainerRegistry: $(ACR_NAME) 
             gitUpdateType: HLD
             gitRepoURL: $(HLD_REPO)
-            gitRepoName: $(Build.Repository.Name)
+            gitRepoName: 'quick-start-hld'
             gitBranchName: $(Build.SourceBranchName)
             gitAccessToken: $(PAT) 
             serviceName: $(APP_NAME)
