@@ -54,14 +54,14 @@ steps:
       ACCESS_TOKEN_SECRET: ${{ parameters.gitAccessToken }}
       REPO: ${{ parameters.gitRepoURL }} 
   - task: Bash@3
-  inputs:
-    filePath: scripts/fab-image-tag-update.sh
-    failOnStderr: true
-  displayName: Push Fabrikate Image Tag update to new Git branch and make PR
-  env:
-    ACR_NAME: ${{ parameters.azureContainerRegistry }}
-    REPO_NAME: ${{ parameters.gitRepoName }}
-    BRANCH_NAME: ${{ parameters.gitBranchName }}
-    BUILD_VERSION: ${{ parameters.imageTag }}
-    SERVICE_NAME: ${{ parameters.serviceName }}
+    inputs:
+      filePath: scripts/fab-image-tag-update.sh
+      failOnStderr: true
+    displayName: Push Fabrikate Image Tag update to new Git branch and make PR
+    env:
+      ACR_NAME: ${{ parameters.azureContainerRegistry }}
+      REPO_NAME: ${{ parameters.gitRepoName }}
+      BRANCH_NAME: ${{ parameters.gitBranchName }}
+      BUILD_VERSION: ${{ parameters.imageTag }}
+      sSERVICE_NAME: ${{ parameters.serviceName }}
 
