@@ -63,5 +63,5 @@ steps:
       REPO_NAME: ${{ parameters.gitRepoName }}
       BRANCH_NAME: ${{ parameters.gitBranchName }}
       BUILD_VERSION: ${{ parameters.imageTag }}
-      sSERVICE_NAME: ${{ parameters.serviceName }}
+      SERVICE_NAME: ${{ parameters.serviceName }}
 
