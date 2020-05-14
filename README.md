@@ -47,6 +47,15 @@ The *templates* and *scripts* directories can be copied locally to the [project]
 
 The vision here is that users can __extend__ the logic `bedrock` sets up for them. We are enabling a library of GitOps AZDO templates and scripts that the community can extend.
 
+## Breaking apart `build.sh`
+
+The Bedrock repo has a `build.sh` file which has become a monolith where several functions are defined. Currently `bedrock` downloads this file during pipeline execution to do things suchs as 
+- Find the latest version of Fabrikate
+- Initialize Helm2 in client only mode
+- Determine if a build is for a pull request or a merge for master   
+
+The proposed approach would break out pieces of logic from that file into smaller scripts that can be re-used in the templated model approach.
+
 ## Testing
 
 * With so much logic pushed down into bash scripts that are based on ENV VARs, it becomes easier to test building blocks of logic.
