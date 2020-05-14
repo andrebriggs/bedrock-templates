@@ -52,7 +52,12 @@ steps:
     displayName: Git clone HLD
     env:
       ACCESS_TOKEN_SECRET: ${{ parameters.gitAccessToken }}
-      REPO: ${{ parameters.gitRepoURL }} 
+      REPO: ${{ parameters.gitRepoURL }}
+  - template: templates/azure-login.yml  # Template reference
+      parameters:
+        appId: $(SP_APP_ID)
+        password: $(SP_PASS)
+        tenantId: $(SP_TENANT)
   - task: Bash@3
     inputs:
       filePath: scripts/fab-image-tag-update.sh
