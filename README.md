@@ -20,10 +20,10 @@ This repo contains a proof of concept of what `bedrock` could be doing instead. 
 
 The reason for this is to make `bedrock` pipeline generation less rigid. Instead we can focus on composition and encapsulation. This unlocks several benefits:
 
-  * Business logic specific data and functions are packaged
-  * More definition of what components need (via parameters)
-  * More logic reuse
-  * Separation of concerns
+* Business logic specific data and functions are packaged
+* More definition of what components need (via parameters)
+* More logic reuse
+* Separation of concerns
   
 ## Scenarios
 
@@ -57,7 +57,7 @@ The vision here is that users can __extend__ the logic `bedrock` sets up for the
 
 ### Current `bedrock service create` yaml
 
-```
+```yaml
 # GENERATED WITH BEDROCK VERSION 0.6.5
 trigger:
   branches:
@@ -211,7 +211,7 @@ stages:
 
 ### Proposed yaml style
 
-```
+```yaml
 # File: azure-pipelines.yml
 trigger:
 - master
