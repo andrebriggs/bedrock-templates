@@ -44,7 +44,7 @@ ls -lt
 cd ..
 ls -lt
 
-cd ../$REPO_NAME/$FAB_SAFE_SERVICE_NAME/$FAB_SAFE_SERVICE_NAME/$(echo $BRANCH_NAME | tr / - | tr . - | tr _ - )
+cd /home/vsts/$REPO_NAME/$FAB_SAFE_SERVICE_NAME/$FAB_SAFE_SERVICE_NAME/$(echo $BRANCH_NAME | tr / - | tr . - | tr _ - )
 echo "FAB SET"
 fab set --subcomponent chart image.tag=$IMAGE_TAG image.repository=$IMAGE_REPO/$BUILD_REPO_NAME
 
