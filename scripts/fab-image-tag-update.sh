@@ -38,6 +38,12 @@ export IMAGE_NAME=$BUILD_REPO_NAME:$IMAGE_TAG
 echo "Image Name: $IMAGE_NAME"
 export IMAGE_REPO=$(echo $ACR_NAME.azurecr.io | tr '[:upper:]' '[:lower:]')
 echo "Image Repository: $IMAGE_REPO"
+
+echo "Current dir $(pwd)"
+ls -lt
+cd ..
+ls -lt
+
 cd ../$REPO_NAME/$FAB_SAFE_SERVICE_NAME/$FAB_SAFE_SERVICE_NAME/$(echo $BRANCH_NAME | tr / - | tr . - | tr _ - )
 echo "FAB SET"
 fab set --subcomponent chart image.tag=$IMAGE_TAG image.repository=$IMAGE_REPO/$BUILD_REPO_NAME
