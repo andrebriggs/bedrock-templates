@@ -40,13 +40,14 @@ export IMAGE_REPO=$(echo $ACR_NAME.azurecr.io | tr '[:upper:]' '[:lower:]')
 echo "Image Repository: $IMAGE_REPO"
 
 echo "Current dir $(pwd)"
+FAB_LOCATION="$(pwd)/fab/fab"
 ls -lt
 cd ..
 ls -lt
 
 cd /home/vsts/$REPO_NAME/$FAB_SAFE_SERVICE_NAME/$FAB_SAFE_SERVICE_NAME/$(echo $BRANCH_NAME | tr / - | tr . - | tr _ - )
 echo "FAB SET"
-$HOME/fab set --subcomponent chart image.tag=$IMAGE_TAG image.repository=$IMAGE_REPO/$BUILD_REPO_NAME
+$FAB_LOCATION set --subcomponent chart image.tag=$IMAGE_TAG image.repository=$IMAGE_REPO/$BUILD_REPO_NAME
 
 # Set git identity
 git config user.email "admin@azuredevops.com"
