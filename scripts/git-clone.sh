@@ -20,4 +20,7 @@ function git_connect() {
     cd "$repo_name"
     echo "GIT PULL ORIGIN MASTER"
     git pull origin master
+    echo "Current dir: $(pwd)"
 }
+
+git_connect
