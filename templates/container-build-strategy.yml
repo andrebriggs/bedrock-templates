@@ -5,8 +5,8 @@ parameters:
 - name: downloadTools
   type: boolean
   default: true
-- name: imageName # name of the parameter; required
-  type: string # data type of the parameter; required
+- name: imageName
+  type: string
 - name: imageTag
   type: string
 - name: imageRepoType

@@ -254,13 +254,14 @@ stages:
           parameters:
             downloadFab: true
             downloadTools: true
-            azureContainerRegistry: $(ACR_NAME) 
+            azureContainerRegistry: $(ACR_NAME)
             gitUpdateType: HLD
             gitRepoURL: $(HLD_REPO)
-            gitAccessToken: $(PAT) 
+            gitAccessToken: $(PAT)
             imageName: "$(APP_NAME)-$(Build.SourceBranchName)"
             imageTag: $(Build.BuildNumber)
 ```
+
 <!--
 <pre>
 .
