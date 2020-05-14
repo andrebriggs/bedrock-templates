@@ -34,6 +34,11 @@ parameters:
   default: ''
 
 steps:
+- template: azure-login.yml  # Template reference
+    parameters:
+      appId: $(SP_APP_ID)
+      password: $(SP_PASS)
+      tenantId: $(SP_TENANT)
 - ${{ if eq(parameters.downloadTools, true) }}:
   - task: HelmInstaller@1
     inputs:
@@ -53,11 +58,6 @@ steps:
     env:
       ACCESS_TOKEN_SECRET: ${{ parameters.gitAccessToken }}
       REPO: ${{ parameters.gitRepoURL }}
-  - template: azure-login.yml  # Template reference
-      parameters:
-        appId: $(SP_APP_ID)
-        password: $(SP_PASS)
-        tenantId: $(SP_TENANT)
   - task: Bash@3
     inputs:
       filePath: scripts/fab-image-tag-update.sh
