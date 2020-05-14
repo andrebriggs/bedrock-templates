@@ -47,35 +47,9 @@ The *templates* and *scripts* directories can be copied locally to the [project]
 
 The vision here is that users can __extend__ the logic `bedrock` sets up for them. We are enabling a library of GitOps AZDO templates and scripts that the community can extend.
 
-<!--
-<pre>
-.
-├── README.md
-├── azure-pipelines.yml
-├── <b>scripts</b>
-│   ├── AzureContainerRegistryBuild.sh
-│   ├── Test.AzureContainerRegistryBuild.sh
-│   ├── download-fabrikate.sh
-│   ├── fab-image-tag-update.sh
-│   ├── git-clone.sh
-│   └── git-pull-request-azdo.sh
-└── <b>templates</b>
-    ├── app-variables.yml
-    ├── azure-login.yml
-    ├── container-build-strategy.yml
-    └── git-update-strategy.yml
-</pre>
--->
-### Scenario: Bedrock in private networks
+## Testing
 
-A scenario that has come up a few times is around customers who don't want to download external packages outside of their private network but want to take advantage of Bedrock style deployment. We've thought about these story of scenarios from the [build agent](https://github.com/andrebriggs/bedrock-agents) side but a complete solution requires generated pipelines from `bedrock` to be aware.
-
-Such a solution would require confuguration that can be easily manipulated with minimal changes to the the Bedrock CLI. If we provide switches to turn on and off certain pieces of logic (i.e. don't download Fabrikate) we can make these sort of scenario easier to acheive to for customers.
-
-* If you don't want to use a variable group you can set ENV VAR (even) secure ones) in your [custom Bedrock build agent](https://github.com/andrebriggs/bedrock-agents)
-  * Power users (enterprise_) can bring all their tools in a custom Bedrock build agent.
-
-* Shell scripts that are based on ENV VARs can be easily tested.
+* With so much logic pushed down into bash scripts that are based on ENV VARs, it becomes easier to test building blocks of logic.
 * We will rely more on integration tests since the solution space has exploded compared to the hardcoded paths of the current CLI
 * The templatizing makes it easier for someone to take what we are doing and massage it to their needs. The current model doesn't invite people to change what has been scaffolding
 
@@ -287,3 +261,22 @@ stages:
             imageName: "$(APP_NAME)-$(Build.SourceBranchName)"
             imageTag: $(Build.BuildNumber)
 ```
+<!--
+<pre>
+.
+├── README.md
+├── azure-pipelines.yml
+├── <b>scripts</b>
+│   ├── AzureContainerRegistryBuild.sh
+│   ├── Test.AzureContainerRegistryBuild.sh
+│   ├── download-fabrikate.sh
+│   ├── fab-image-tag-update.sh
+│   ├── git-clone.sh
+│   └── git-pull-request-azdo.sh
+└── <b>templates</b>
+    ├── app-variables.yml
+    ├── azure-login.yml
+    ├── container-build-strategy.yml
+    └── git-update-strategy.yml
+</pre>
+-->
