@@ -74,8 +74,10 @@ export SERVICE_NAME_LOWER=$(echo $SERVICE_NAME | tr '[:upper:]' '[:lower:]')
 export FAB_SAFE_SERVICE_NAME=$(echo $SERVICE_NAME_LOWER | tr . - | tr / -)
 
 # Update HLD
-git checkout -b "$BRANCH_NAME"
 export BUILD_REPO_NAME=$(echo $REPO_NAME-$SERVICE_NAME | tr '[:upper:]' '[:lower:]')
+export CHECKOUT_BRANCH_NAME=DEPLOY/$BUILD_REPO_NAME-$(echo $BRANCH_NAME | tr / - | tr . - | tr _ - )-$BUILD_VERSION
+git checkout -b "$CHECKOUT_BRANCH_NAME"
+
 export IMAGE_TAG=$(echo $BRANCH_NAME | tr / - | tr . - | tr _ - )-$BUILD_VERSION
 export IMAGE_NAME=$BUILD_REPO_NAME:$IMAGE_TAG
 echo "Image Name: $IMAGE_NAME"
