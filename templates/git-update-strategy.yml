@@ -17,10 +17,16 @@ parameters:
 - name: gitRepoURL
   type: string
   default: ''
+- name: gitRepoName
+  type: string
+  default: ''
+- name: gitBranchName
+  type: string
+  default: ''
 - name: gitAccessToken
   type: string
   default: ''
-- name: imageName
+- name: serviceName
   type: string
   default: ''
 - name: imageTag
@@ -38,22 +44,24 @@ steps:
       filePath: scripts/download-fabrikate.sh
       failOnStderr: false
     displayName: Download Linux Fabrikate
-# - task: Bash@3
-#   inputs:
-#     filePath: scripts/download-fabrikate.sh
-#     failOnStderr: true
-#   displayName: Clone a private git repository
-#   env:
-#       ACCESS_TOKEN_SECRET: 'REPLACE-ME'
-# - ${{ if eq(parameters.gitUpdateType, 'HLD') }}:
-#   - task: Bash@3
-#   inputs:
-#     filePath: scripts/fab-image-tag-update.sh
-#     failOnStderr: true
-#   displayName: ush Fabrikate Image Tag update to new Git branch and make PR
-#   env:
-#     ACR_NAME: ${{ parameters.azureContainerRegistry }}
-#     REPO_NAME: 'REPLACE-ME'
-#     BRANCH_NAME: 'REPLACE-ME'
-#     BUILD_VERSION: 'REPLACE-ME'
+- ${{ if eq(parameters.gitUpdateType, 'HLD') }}:
+  - task: Bash@3
+    inputs:
+      filePath: scripts/git-clone.sh
+      failOnStderr: true
+    displayName: Git clone HLD
+    env:
+      ACCESS_TOKEN_SECRET: ${{ parameters.gitAccessToken }}
+      REPO: ${{ parameters.gitRepoURL }} 
+  - task: Bash@3
+  inputs:
+    filePath: scripts/fab-image-tag-update.sh
+    failOnStderr: true
+  displayName: Push Fabrikate Image Tag update to new Git branch and make PR
+  env:
+    ACR_NAME: ${{ parameters.azureContainerRegistry }}
+    REPO_NAME: ${{ parameters.gitRepoName }}
+    BRANCH_NAME: ${{ parameters.gitBranchName }}
+    BUILD_VERSION: ${{ parameters.imageTag }}
+    SERVICE_NAME: ${{ parameters.serviceName }}
 

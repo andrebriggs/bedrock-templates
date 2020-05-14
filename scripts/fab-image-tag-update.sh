@@ -22,13 +22,18 @@ then
     echo "No ACR name provided"
 fi
 
-export SERVICE_NAME_LOWER=$(echo quick-start-app | tr '[:upper:]' '[:lower:]')
+if [ -z "$SERVICE_NAME" ]
+then
+    echo "No service name provided"
+fi
+
+export SERVICE_NAME_LOWER=$(echo $SERVICE_NAME | tr '[:upper:]' '[:lower:]')
 export FAB_SAFE_SERVICE_NAME=$(echo $SERVICE_NAME_LOWER | tr . - | tr / -)
 
 # Update HLD
 git checkout -b "$BRANCH_NAME"
-export BUILD_REPO_NAME=$(echo $REPO_NAME-quick-start-app | tr '[:upper:]' '[:lower:]')
-export IMAGE_TAG=$(echo BRANCH_NAME | tr / - | tr . - | tr _ - )-$BUILD_VERSION
+export BUILD_REPO_NAME=$(echo $REPO_NAME-$SERVICE_NAME | tr '[:upper:]' '[:lower:]')
+export IMAGE_TAG=$(echo $BRANCH_NAME | tr / - | tr . - | tr _ - )-$BUILD_VERSION
 export IMAGE_NAME=$BUILD_REPO_NAME:$IMAGE_TAG
 echo "Image Name: $IMAGE_NAME"
 export IMAGE_REPO=$(echo $ACR_NAME.azurecr.io | tr '[:upper:]' '[:lower:]')

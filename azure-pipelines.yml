@@ -46,6 +46,8 @@ stages:
             azureContainerRegistry: $(ACR_NAME) 
             gitUpdateType: HLD
             gitRepoURL: $(HLD_REPO)
+            gitRepoName: $(Build.Repository.Name)
+            gitBranchName: $(Build.SourceBranchName)
             gitAccessToken: $(PAT) 
-            imageName: "$(APP_NAME)-$(Build.SourceBranchName)"
+            serviceName: $(APP_NAME)
             imageTag: $(Build.BuildNumber)
