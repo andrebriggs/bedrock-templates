@@ -34,11 +34,15 @@ parameters:
   default: ''
 
 steps:
-- template: azure-login.yml  # Template reference
-    parameters:
-      appId: $(SP_APP_ID)
-      password: $(SP_PASS)
-      tenantId: $(SP_TENANT)
+ - task: Bash@3
+    inputs:
+      filePath: scripts/azure-login.sh
+      failOnStderr: false
+    displayName: Az Login
+    env:
+      SP_APP_ID: $(SP_APP_ID)
+      SP_PASS: $(SP_PASS)
+      SP_TENANT: $(SP_TENANT)
 - ${{ if eq(parameters.downloadTools, true) }}:
   - task: HelmInstaller@1
     inputs:
