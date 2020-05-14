@@ -75,8 +75,8 @@ export FAB_SAFE_SERVICE_NAME=$(echo $SERVICE_NAME_LOWER | tr . - | tr / -)
 
 # Update HLD
 export BUILD_REPO_NAME=$(echo $REPO_NAME-$SERVICE_NAME | tr '[:upper:]' '[:lower:]')
-export CHECKOUT_BRANCH_NAME=DEPLOY/$BUILD_REPO_NAME-$(echo $BRANCH_NAME | tr / - | tr . - | tr _ - )-$BUILD_VERSION
-git checkout -b "$CHECKOUT_BRANCH_NAME"
+export CHECKOUT_BRANCH_NAME=DEPLOY/$BUILD_REPO_NAME-$(echo $BRANCH_NAME | tr / - | tr . - | tr _ - )-$BUILD_VERSION 
+
 
 export IMAGE_TAG=$(echo $BRANCH_NAME | tr / - | tr . - | tr _ - )-$BUILD_VERSION
 export IMAGE_NAME=$BUILD_REPO_NAME:$IMAGE_TAG
@@ -86,11 +86,12 @@ echo "Image Repository: $IMAGE_REPO"
 
 echo "Current dir $(pwd)"
 FAB_LOCATION="$(pwd)/fab/fab"
-ls -lt
+# ls -lt
 cd ..
-ls -lt
+# ls -lt
 
 cd /home/vsts/$REPO_NAME/$FAB_SAFE_SERVICE_NAME/$FAB_SAFE_SERVICE_NAME/$(echo $BRANCH_NAME | tr / - | tr . - | tr _ - )
+git checkout -b "$CHECKOUT_BRANCH_NAME"
 echo "FAB SET"
 $FAB_LOCATION set --subcomponent chart image.tag=$IMAGE_TAG image.repository=$IMAGE_REPO/$BUILD_REPO_NAME
 
