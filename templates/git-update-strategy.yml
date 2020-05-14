@@ -34,15 +34,15 @@ parameters:
   default: ''
 
 steps:
-- task: Bash@3
-  inputs:
-    filePath: scripts/azure-login.sh
-    failOnStderr: false
-  displayName: Az Login
-  env:
-    SP_APP_ID: $(SP_APP_ID)
-    SP_PASS: $(SP_PASS)
-    SP_TENANT: $(SP_TENANT)
+# - task: Bash@3
+#   inputs:
+#     filePath: scripts/azure-login.sh
+#     failOnStderr: false
+#   displayName: Az Login
+#   env:
+#     SP_APP_ID: $(SP_APP_ID)
+#     SP_PASS: $(SP_PASS)
+#     SP_TENANT: $(SP_TENANT)
 - ${{ if eq(parameters.downloadTools, true) }}:
   - task: HelmInstaller@1
     inputs:
@@ -74,5 +74,6 @@ steps:
       BUILD_VERSION: ${{ parameters.imageTag }}
       SERVICE_NAME: ${{ parameters.serviceName }}
       ACCESS_TOKEN_SECRET: ${{ parameters.gitAccessToken }}
+      AZURE_DEVOPS_EXT_PAT: ${{ parameters.gitAccessToken }}
       REPO: ${{ parameters.gitRepoURL }} 
 
