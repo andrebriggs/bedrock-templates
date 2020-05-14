@@ -64,4 +64,6 @@ steps:
       BRANCH_NAME: ${{ parameters.gitBranchName }}
       BUILD_VERSION: ${{ parameters.imageTag }}
       SERVICE_NAME: ${{ parameters.serviceName }}
+      ACCESS_TOKEN_SECRET: ${{ parameters.gitAccessToken }}
+      REPO: ${{ parameters.gitRepoURL }} 
 
