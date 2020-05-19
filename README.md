@@ -29,7 +29,7 @@ The reason for this is to make `bedrock` pipeline generation less rigid. Instead
 
 __GitOps pipeline using High Level Definition repo and Fabrikate__: The default scenario `bedrock` provides has the user calling `bedrock service create` and `bedrock service install-build-pipeline` to install the pipeline to AzDO and build a Docker image, push to ACR, and update a HLD repo using Fabrikate.
 
-__GitOps pipeline with Fabrikate__:Consider a user who doesn't want to use Fabrikate for any variety of reasons. The user specifies a pre-canned template such as `helm-gitops`. This template generates a pipeline for Docker build/push but instead of having Fabrikate being called on a HLD repo it will modify a Helm chart then call `helm template` to generate yaml manifests. These yaml manifest can be saved in a "manifest" repository. A user has a GitOps pipeline using only Helm.
+__GitOps pipeline _without_ Fabrikate__:Consider a user who doesn't want to use Fabrikate for any variety of reasons. The user specifies a pre-canned template such as `helm-gitops`. This template generates a pipeline for Docker build/push but instead of having Fabrikate being called on a HLD repo it will modify a Helm chart then call `helm template` to generate yaml manifests. These yaml manifest can be saved in a "manifest" repository. A user has a GitOps pipeline using only Helm.
 
 __Not using ACR__: Another scenario builds on top of the previous two examples but instead of pushing to an Azure Container Registry we can push the built Docker image to DockerHub or any other Docker registry.
 
