@@ -41,13 +41,13 @@ steps:
 - ${{ if eq(parameters.downloadFab, true) }}:
   - task: Bash@3
     inputs:
-      filePath: scripts/download-fabrikate.sh
+      filePath: $(TEMPLATE_DIR)/scripts/download-fabrikate.sh
       failOnStderr: false
     displayName: Download Linux Fabrikate
 - ${{ if eq(parameters.gitUpdateType, 'HLD') }}:
   - task: Bash@3
     inputs:
-      filePath: scripts/git-clone.sh
+      filePath: $(TEMPLATE_DIR)/scripts/git-clone.sh
       failOnStderr: false
     displayName: Git clone HLD
     env:
@@ -55,7 +55,7 @@ steps:
       REPO: ${{ parameters.gitRepoURL }}
   - task: Bash@3
     inputs:
-      filePath: scripts/fab-image-tag-update.sh
+      filePath: $(TEMPLATE_DIR)/scripts/fab-image-tag-update.sh
       failOnStderr: false
     displayName: Push Fabrikate Image Tag update to new Git branch and make PR
     env:
