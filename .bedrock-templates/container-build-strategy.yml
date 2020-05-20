@@ -28,15 +28,15 @@ steps:
     echo $(System.DefaultWorkingDirectory)
     cd $(System.DefaultWorkingDirectory)
     ls -la
-    sudo chmod +x ./$TEMPLATE_DIR/scripts/*.sh
+    sudo chmod +x ./$(TEMPLATE_DIR)/scripts/*.sh
   failOnStderr: true
   displayName: Debugging messages
 - task: Bash@3
   inputs:
     ${{ if eq(parameters.imageRepoType, 'ACR') }}:
-      filePath: $TEMPLATE_DIR/scripts/AzureContainerRegistryBuild.sh
+      filePath: $(TEMPLATE_DIR)/scripts/AzureContainerRegistryBuild.sh
     ${{ if eq(parameters.imageRepoType, 'DockerHub') }}:
-      filePath: $TEMPLATE_DIR/scripts/DockerHubRegistryBuild.sh
+      filePath: $(TEMPLATE_DIR)/scripts/DockerHubRegistryBuild.sh
     failOnStderr: true
   env:
     IMAGE_TAG: ${{ parameters.imageTag }}
