@@ -8,7 +8,7 @@ variables:
     value: quick-start-app
   - name: AZP_POOL
     value: my-special-pool
-  # - template: templates/app-variables.yml  # Template reference
+  # - template: .bedrock-templates/app-variables.yml  # Template reference
 
 stages:
   - stage: build
@@ -17,12 +17,12 @@ stages:
         pool:
           vmImage: ubuntu-latest
         steps:
-        - template: templates/azure-login.yml  # Template reference
+        - template: .bedrock-templates/azure-login.yml  # Template reference
           parameters:
             appId: $(SP_APP_ID)
             password: $(SP_PASS)
             tenantId: $(SP_TENANT)
-        - template: templates/container-build-strategy.yml  # Template reference
+        - template: .bedrock-templates/container-build-strategy.yml  # Template reference
           parameters:
             downloadTools: false
             imageRepoType: ACR
@@ -39,7 +39,7 @@ stages:
         pool:
           vmImage: ubuntu-latest
         steps:
-        - template: templates/git-update-strategy.yml  # Template reference
+        - template: .bedrock-templates/git-update-strategy.yml  # Template reference
           parameters:
             downloadFab: true
             downloadTools: true
